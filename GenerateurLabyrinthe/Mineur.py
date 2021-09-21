@@ -81,6 +81,8 @@ class Mineur:
             if self.abscisse + 1 == caseSuivante.abscisse and self.ordonnee == self.ordonnee:
                 self.labyrinthe.cases[self.abscisse, self.ordonnee].supprimerMurDroit()
             # Déplacement
+            self.abscissePrecedente = self.abscisse
+            self.ordonneePrecedente = self.ordonnee
             self.abscisse = caseSuivante.abscisse
             self.ordonnee = caseSuivante.ordonnee
             caseSuivante.exploree = True
