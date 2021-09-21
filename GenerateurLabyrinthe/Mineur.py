@@ -1,5 +1,5 @@
-import GenerateurLabyrinthe.Labyrinthe as laby
-import GenerateurLabyrinthe.Case as case
+import Labyrinthe.Labyrinthe as laby
+import Labyrinthe.Case as Case
 import random
 import structlog
 logger = structlog.getLogger(__name__)
@@ -28,7 +28,7 @@ class Mineur:
         self.ordonneePrecedente = [0]
 
 
-    def getCaseVoisines(self) -> [case.Case]:
+    def getCaseVoisines(self) -> [Case.Case]:
         """
         Renvoie une liste des cases voisines (accessible ou non selon l'algo du mineur)
         :return:

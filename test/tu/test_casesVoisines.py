@@ -1,4 +1,4 @@
-import GenerateurLabyrinthe.Labyrinthe as laby
+import Labyrinthe.Labyrinthe as laby
 import GenerateurLabyrinthe.Mineur as Mineur
 
 

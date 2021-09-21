@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import structlog as structlog
 
-import GenerateurLabyrinthe.Labyrinthe as laby
+import Labyrinthe.Labyrinthe as laby
 logger =structlog.getLogger(__name__)
 class Case:
     """

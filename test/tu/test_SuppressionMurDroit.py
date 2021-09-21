@@ -1,8 +1,7 @@
 import pytest
 import structlog
 
-import GenerateurLabyrinthe.Case as Case
-import GenerateurLabyrinthe.Labyrinthe as laby
+import Labyrinthe.Labyrinthe as laby
 
 logger = structlog.getLogger(__name__)
 

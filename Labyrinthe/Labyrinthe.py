@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 class Labyrinthe:
     def __init__(self, nbLigne, nbColonne):
-        import GenerateurLabyrinthe.Case as Case
+        import Labyrinthe.Case as Case
         """
         Crée une grille pleine
         """

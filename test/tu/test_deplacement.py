@@ -1,4 +1,4 @@
-import GenerateurLabyrinthe.Labyrinthe as Labyrinthe
+import Labyrinthe.Labyrinthe as Labyrinthe
 import GenerateurLabyrinthe.Mineur as Mineur
 
 
@@ -16,10 +16,11 @@ def test_deplacementHaut():
     mineur.deplacement()
     assert mineur.abscisse == 1
     assert mineur.ordonnee == 2
-    assert mineur.abscissePrecedente == 1
-    assert mineur.ordonneePrecedente == 1
-    assert laby.cases[(1,2)].exploree
-    assert not laby.cases[(1,1)].murHaut and not laby.cases[(1,2)].murBas
+    assert mineur.abscissePrecedente[-1] == 1
+    assert mineur.ordonneePrecedente[-1] == 1
+    assert laby.cases[(1, 2)].exploree
+    assert not laby.cases[(1, 1)].murHaut and not laby.cases[(1, 2)].murBas
+
 
 def test_deplacementBas():
     """
@@ -35,10 +36,11 @@ def test_deplacementBas():
     mineur.deplacement()
     assert mineur.abscisse == 1
     assert mineur.ordonnee == 0
-    assert mineur.abscissePrecedente == 1
-    assert mineur.ordonneePrecedente == 1
-    assert laby.cases[(1,0)].exploree
-    assert not laby.cases[(1,1)].murBas and not laby.cases[(1,0)].murHaut
+    assert mineur.abscissePrecedente[-1] == 1
+    assert mineur.ordonneePrecedente[-1] == 1
+    assert laby.cases[(1, 0)].exploree
+    assert not laby.cases[(1, 1)].murBas and not laby.cases[(1, 0)].murHaut
+
 
 def test_deplacementGauche():
     """
@@ -54,10 +56,11 @@ def test_deplacementGauche():
     mineur.deplacement()
     assert mineur.abscisse == 0
     assert mineur.ordonnee == 1
-    assert mineur.abscissePrecedente == 1
-    assert mineur.ordonneePrecedente == 1
-    assert laby.cases[(0,1)].exploree
-    assert not laby.cases[(1,1)].murGauche and not laby.cases[(0,1)].murDroit
+    assert mineur.abscissePrecedente[-1] == 1
+    assert mineur.ordonneePrecedente[-1] == 1
+    assert laby.cases[(0, 1)].exploree
+    assert not laby.cases[(1, 1)].murGauche and not laby.cases[(0, 1)].murDroit
+
 
 def test_deplacementDroit():
     """
@@ -73,7 +76,7 @@ def test_deplacementDroit():
     mineur.deplacement()
     assert mineur.abscisse == 2
     assert mineur.ordonnee == 1
-    assert mineur.abscissePrecedente == 1
-    assert mineur.ordonneePrecedente == 1
-    assert laby.cases[(0,1)].exploree
-    assert not laby.cases[(1,1)].murDroit and not laby.cases[(2,1)].murGauche
+    assert mineur.abscissePrecedente[-1] == 1
+    assert mineur.ordonneePrecedente[-1] == 1
+    assert laby.cases[(0, 1)].exploree
+    assert not laby.cases[(1, 1)].murDroit and not laby.cases[(2, 1)].murGauche
