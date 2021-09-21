@@ -1,6 +1,8 @@
 import GenerateurLabyrinthe.Labyrinthe as laby
 import GenerateurLabyrinthe.Case as case
 import random
+import structlog
+logger = structlog.getLogger(__name__)
 
 class Mineur:
     """
@@ -22,14 +24,8 @@ class Mineur:
         self.ordonnee = 0
         # Il a exploré la case de départ
         self.labyrinthe.cases[(0, 0)].exploree = True
-        self.abscissePrecedente = 0
-        self.ordonneePrecedente = 0
-
-    def creerLabyrinthe(self):
-        """
-        Fonction de création de labyrinthe, utilise l'algo du "mineur"
-        :return:
-        """
+        self.abscissePrecedente = [0]
+        self.ordonneePrecedente = [0]
 
 
     def getCaseVoisines(self) -> [case.Case]:
@@ -55,9 +51,10 @@ class Mineur:
         (les cases voisines qui n'ont pas encore été visitées)
         :return:
         """
+        logger.debug(f"Cases dispos : {[(case.abscisse, case.ordonnee) for case in self.getCaseVoisines() if not case.exploree]}")
         return [case for case in self.getCaseVoisines() if not case.exploree]
 
-    def deplacement(self):
+    def deplacement(self)->bool:
         """
         Va déplacer le mineur d'une case (si possible)
         :return: True si le mineur a été deplacé, False sinon
@@ -81,9 +78,31 @@ class Mineur:
             if self.abscisse + 1 == caseSuivante.abscisse and self.ordonnee == self.ordonnee:
                 self.labyrinthe.cases[self.abscisse, self.ordonnee].supprimerMurDroit()
             # Déplacement
-            self.abscissePrecedente = self.abscisse
-            self.ordonneePrecedente = self.ordonnee
+            self.abscissePrecedente.append(self.abscisse)
+            self.ordonneePrecedente.append(self.ordonnee)
             self.abscisse = caseSuivante.abscisse
             self.ordonnee = caseSuivante.ordonnee
             caseSuivante.exploree = True
+            return True
         # Il n'y a pas de case dispo, demi-tour
+        else:
+            # Demi tour possible (le mineur n'est pas en 0,0):
+            if self.ordonnee or self.abscisse:
+                logger.debug(f"coordonées précédentes : {self.abscissePrecedente, self.ordonneePrecedente}")
+                self.abscisse = self.abscissePrecedente.pop()
+                self.ordonnee = self.ordonneePrecedente.pop()
+                logger.debug(f"Coordonnées : {self.abscisse}, {self.ordonnee}")
+                return True
+            else:
+                return False
+
+    def creerLabyrinthe(self):
+        """
+        Fonction de création de labyrinthe, utilise l'algo du "mineur"
+        :return:
+        """
+        continuer = True
+        while continuer:
+            logger.debug("Nouvelle itération")
+            continuer = self.deplacement()
+            logger.debug(f"Coordonnées : {self.abscisse}, {self.ordonnee}")

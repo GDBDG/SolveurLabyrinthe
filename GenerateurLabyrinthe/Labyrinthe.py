@@ -1,4 +1,5 @@
 from itertools import product
+import logging_config
 
 CST_CROIX = 0.3
 import matplotlib.pyplot as plt
@@ -35,5 +36,9 @@ class Labyrinthe:
 
 
 if __name__ == '__main__':
-    laby = Labyrinthe(10, 10)
+    import GenerateurLabyrinthe.Mineur as Mineur
+    logging_config.config_logging()
+    laby = Labyrinthe(100, 100)
+    mineur = Mineur.Mineur(labyrinthe=laby)
+    mineur.creerLabyrinthe()
     laby.plot_labyrinthe()
