@@ -1,6 +1,6 @@
 from itertools import product
-import logging_config
-
+import structlog
+logger = structlog.getLogger(__name__)
 CST_CROIX = 0.3
 import matplotlib.pyplot as plt
 
@@ -11,6 +11,7 @@ class Labyrinthe:
         """
         Crée une grille pleine
         """
+        logger.debug("Instanciatoin d'un labyrinthe")
         self.nbLigne = nbLigne
         self.nbColonne = nbColonne
         self.cases = {(abscisse, ordonnee): Case.Case(self, abscisse, ordonnee) for abscisse, ordonnee in
@@ -24,6 +25,7 @@ class Labyrinthe:
         Trace le labyrinthe via matplotlib
         :return:
         """
+        logger.info("Plotage d'un labyrinthe")
         # Tracer les cases
         for case in self.cases.values():
             case.ploterCase()

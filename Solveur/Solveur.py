@@ -11,18 +11,14 @@ class Solveur:
         """
         :param labyrinthe: instance de labyrinthe à résoudre
         """
+        logger.info("Instanciation d'un solveur")
         self.labyrinthe = labyrinthe
-
-    def resolution(self):
-        """
-        Méthode qui résout un labyrinthe, et trace le chemin
-        """
-        pass
 
     def numerotationTotaleSequentielle(self):
         """
         Lance la numérotation de toutes les cases
         """
+        logger.info("Appel de la numérotation des cases")
         self.numerotationSequentielle(self.labyrinthe.entree)
 
 
@@ -51,12 +47,14 @@ class Solveur:
         Au vu de la méthode de génération, ce chemin est unique, cette hypothèse est nécessaire
         pour cette méthode
         """
-        caseARelier = [self.labyrinthe.entree]
-        derniereCase = self.labyrinthe.entree
-        while derniereCase != self.labyrinthe.sortie:
+        logger.info("Calcul des cases à relier")
+        logger.debug(f"Distance à la sortie : {self.labyrinthe.sortie.distance}")
+        caseARelier = [self.labyrinthe.sortie]
+        derniereCase = self.labyrinthe.sortie
+        while derniereCase != self.labyrinthe.entree:
             logger.debug(f"derniereCase : {str(derniereCase)}, de distance : {derniereCase.distance}")
             for voisin in derniereCase.getVoisins():
-                if voisin.distance == derniereCase.distance + 1:
+                if voisin.distance == derniereCase.distance - 1:
                     derniereCase = voisin
                     caseARelier.append(derniereCase)
                     break
@@ -67,6 +65,7 @@ class Solveur:
         Ne nécessite pas un labyrinthe déjà résolu (le fait)
         Ne trace pas le labyrinthe
         """
+        logger.info("Affichage de la solution")
         casesARelier = self.resolution()
         for case1, case2 in zip(casesARelier[:-1], casesARelier[1:]):
             case1.relierCases(case2)
