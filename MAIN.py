@@ -4,7 +4,7 @@ import logging_config
 from Labyrinthe.Labyrinthe import Labyrinthe
 from Solveur.Solveur import Solveur
 import matplotlib.pyplot as plt
-
+import MesurePerformance.recorder as recorder
 from constantes import RECURSION_LIMITE
 
 if __name__ == '__main__':
@@ -21,4 +21,5 @@ if __name__ == '__main__':
     distances = [[cases[x,y].distance for x in range(laby.nbLigne)] for y in range(laby.nbColonne)]
     print(f"Liste des distances : {distances}")
     solveur.ploterSolution()
+    print(f"temps de génération du labyrinthe : {[(key, valeur) for key, valeur in recorder.listeTemps.items()]}")
     plt.show()

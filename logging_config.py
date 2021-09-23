@@ -26,14 +26,14 @@ def config_logging():
         },
         "handlers": {
             "default": {
-                "level": "DEBUG",
+                "level": "INFO",
                 "class": "logging.StreamHandler",
                 "formatter": "colored",
             },
             "file": {
                 "level": "DEBUG",
                 "class": "logging.handlers.WatchedFileHandler",
-                "filename": "le_jeu.log",
+                "filename": "labyrinthe.log",
                 "formatter": "plain",
             },
         },
