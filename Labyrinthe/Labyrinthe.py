@@ -1,7 +1,10 @@
 from itertools import product
 import structlog
+
+from constantes import COULEUR_MUR, COULEUR_ENTREE, COULEUR_SORTIE, CST_CROIX
+
 logger = structlog.getLogger(__name__)
-CST_CROIX = 0.3
+
 import matplotlib.pyplot as plt
 
 
@@ -30,19 +33,16 @@ class Labyrinthe:
         for case in self.cases.values():
             case.ploterCase()
         # Ajout de la ligne du bas et de la colonne de droite
-        plt.plot([0, self.nbLigne], [0, 0], color="black")
-        plt.plot([self.nbLigne, self.nbLigne], [0, self.nbColonne], color="black")
+        plt.plot([0, self.nbLigne], [0, 0], color=COULEUR_MUR)
+        plt.plot([self.nbLigne, self.nbLigne], [0, self.nbColonne], color=COULEUR_MUR)
         # Affichage de l'entrée (Croix noire)
-        plt.plot([0 + CST_CROIX, 1 - CST_CROIX], [0 + CST_CROIX, 1 - CST_CROIX], color="black")
-        plt.plot([0 + CST_CROIX, 1 - CST_CROIX], [1 - CST_CROIX, 0 + CST_CROIX], color="black")
-        plt.plot([self.nbLigne - 1 + CST_CROIX, self.nbLigne - CST_CROIX], [self.nbColonne - 1 + CST_CROIX, self.nbColonne - CST_CROIX], color="red")
-        plt.plot([self.nbLigne - 1 + CST_CROIX, self.nbLigne - CST_CROIX], [self.nbColonne  - CST_CROIX, self.nbColonne -1 + CST_CROIX], color="red")
-
-
-if __name__ == '__main__':
-    import GenerateurLabyrinthe.Mineur as Mineur
-    logging_config.config_logging()
-    laby = Labyrinthe(100, 100)
-    mineur = Mineur.Mineur(labyrinthe=laby)
-    mineur.creerLabyrinthe()
-    laby.plot_labyrinthe()
+        plt.plot([0 + CST_CROIX, 1 - CST_CROIX], [0 + CST_CROIX, 1 - CST_CROIX], color=COULEUR_ENTREE)
+        plt.plot([0 + CST_CROIX, 1 - CST_CROIX], [1 - CST_CROIX, 0 + CST_CROIX], color=COULEUR_ENTREE)
+        plt.plot([self.nbLigne - 1 + CST_CROIX, self.nbLigne - CST_CROIX],
+                 [self.nbColonne - 1 + CST_CROIX, self.nbColonne - CST_CROIX],
+                 color=COULEUR_SORTIE,
+                 )
+        plt.plot([self.nbLigne - 1 + CST_CROIX, self.nbLigne - CST_CROIX],
+                 [self.nbColonne - CST_CROIX, self.nbColonne - 1 + CST_CROIX],
+                 color=COULEUR_SORTIE,
+                 )

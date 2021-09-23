@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import structlog as structlog
 
 import Labyrinthe.Labyrinthe as laby
+from constantes import LONGUEUR, COULEUR
 
 logger = structlog.getLogger(__name__)
-LONGUEUR = 1
-COULEUR = "red"
+
 
 class Case:
     """

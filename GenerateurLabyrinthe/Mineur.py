@@ -84,6 +84,7 @@ class Mineur:
             self.ordonnee = caseSuivante.ordonnee
             caseSuivante.exploree = True
             return True
+
         # Il n'y a pas de case dispo, demi-tour
         else:
             # Demi tour possible (le mineur n'est pas en 0,0):
