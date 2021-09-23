@@ -44,3 +44,29 @@ class Solveur:
             for voisin in caseAExplorer:
                 logger.debug(f"Appel de numérotation pour la case {str(voisin)} depuis la case {str(case)}")
                 self.numerotationSequentielle(voisin, distance + 1)
+
+    def resolution(self):
+        """
+        Méthode qui crée la liste des cases à relier, correspondant au chemin vers la sortie
+        Au vu de la méthode de génération, ce chemin est unique, cette hypothèse est nécessaire
+        pour cette méthode
+        """
+        caseARelier = [self.labyrinthe.entree]
+        derniereCase = self.labyrinthe.entree
+        while derniereCase != self.labyrinthe.sortie:
+            logger.debug(f"derniereCase : {str(derniereCase)}, de distance : {derniereCase.distance}")
+            for voisin in derniereCase.getVoisins():
+                if voisin.distance == derniereCase.distance + 1:
+                    derniereCase = voisin
+                    caseARelier.append(derniereCase)
+                    break
+        return caseARelier
+
+    def ploterSolution(self):
+        """
+        Ne nécessite pas un labyrinthe déjà résolu (le fait)
+        Ne trace pas le labyrinthe
+        """
+        casesARelier = self.resolution()
+        for case1, case2 in zip(casesARelier[:-1], casesARelier[1:]):
+            case1.relierCases(case2)

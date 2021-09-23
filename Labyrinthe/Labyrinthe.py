@@ -18,6 +18,7 @@ class Labyrinthe:
         self.sortie = self.cases[self.nbLigne - 1, self.nbColonne - 1]
         self.entree = self.cases[0, 0]
         self.entree.distance = 0
+
     def plot_labyrinthe(self):
         """
         Trace le labyrinthe via matplotlib
@@ -34,7 +35,6 @@ class Labyrinthe:
         plt.plot([0 + CST_CROIX, 1 - CST_CROIX], [1 - CST_CROIX, 0 + CST_CROIX], color="black")
         plt.plot([self.nbLigne - 1 + CST_CROIX, self.nbLigne - CST_CROIX], [self.nbColonne - 1 + CST_CROIX, self.nbColonne - CST_CROIX], color="red")
         plt.plot([self.nbLigne - 1 + CST_CROIX, self.nbLigne - CST_CROIX], [self.nbColonne  - CST_CROIX, self.nbColonne -1 + CST_CROIX], color="red")
-        plt.show()
 
 
 if __name__ == '__main__':

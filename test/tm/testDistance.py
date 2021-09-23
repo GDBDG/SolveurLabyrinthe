@@ -3,7 +3,7 @@ from itertools import product
 import logging_config
 from Labyrinthe.Labyrinthe import Labyrinthe
 from Solveur.Solveur import Solveur
-
+import matplotlib.pyplot as plt
 if __name__ == '__main__':
     import GenerateurLabyrinthe.Mineur as Mineur
 
@@ -17,5 +17,8 @@ if __name__ == '__main__':
     cases = laby.cases
     distances = [[cases[x,y].distance for x in range(laby.nbLigne)] for y in range(laby.nbColonne)]
     print(distances)
+    solveur.ploterSolution()
+    plt.show()
+
 
 

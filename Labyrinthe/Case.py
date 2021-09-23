@@ -4,7 +4,8 @@ import structlog as structlog
 import Labyrinthe.Labyrinthe as laby
 
 logger = structlog.getLogger(__name__)
-
+LONGUEUR = 1
+COULEUR = "red"
 
 class Case:
     """
@@ -111,6 +112,16 @@ class Case:
         if not self.murDroit:
             voisins.append((cases[self.abscisse + 1, self.ordonnee]))
         return voisins
+
+    def relierCases(self, case):
+        """
+        :param case: case à relier avec self, trace une ligne de couleur COULEUR
+        entre le centre des deux cases
+        Les deux cases sont supposées côte à côte,
+        pour l'instant aucune vérification n'est faite
+        """
+        logger.debug(f"Plotage des cases {str(self)}, {str(case)}")
+        plt.plot([self.abscisse + LONGUEUR/2, case.abscisse + LONGUEUR/2], [self.ordonnee + LONGUEUR/2, case.ordonnee + LONGUEUR/2], COULEUR)
 
     def __str__(self):
         """
