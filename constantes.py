@@ -1,5 +1,5 @@
 # Constantes système
-RECURSION_LIMITE = 5000 # Nombre d'appels récursifs autorisé par le système
+RECURSION_LIMITE = 10000 # Nombre d'appels récursifs autorisé par le système
 
 # Labyrinthe
 COULEUR_MUR = "black" # Couleurs des murs du labyrinthe
