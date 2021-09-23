@@ -2,7 +2,10 @@ import matplotlib.pyplot as plt
 import structlog as structlog
 
 import Labyrinthe.Labyrinthe as laby
-logger =structlog.getLogger(__name__)
+
+logger = structlog.getLogger(__name__)
+
+
 class Case:
     """
     Une case contient un booléen pour chacun de ses 4 murs
@@ -10,7 +13,8 @@ class Case:
     Les coordonnées désignent le point en bas à gauche de la case
     """
 
-    def __init__(self,labyrinthe: laby.Labyrinthe, abscisse=0, ordonnee=0, murHaut=True, murGauche=True, murDroit=True, murBas=True):
+    def __init__(self, labyrinthe: laby.Labyrinthe, abscisse=0, ordonnee=0, murHaut=True, murGauche=True, murDroit=True,
+                 murBas=True):
         """
         Constructeur d'une case
         :param abscisse: coordonée de l'abscisse du mur
@@ -28,6 +32,7 @@ class Case:
         self.murGauche = murGauche
         self.murDroit = murDroit
         self.exploree = False
+        self.distance = float("inf")
 
     def supprimerMurHaut(self):
         """
@@ -37,10 +42,9 @@ class Case:
         Modifie aussi la case du dessus
         :return: None
         """
-        assert (self.abscisse, self.ordonnee+1) in self.labyrinthe.cases.keys()
+        assert (self.abscisse, self.ordonnee + 1) in self.labyrinthe.cases.keys()
         self.murHaut = False
-        self.labyrinthe.cases[(self.abscisse, self.ordonnee+1)].murBas = False
-
+        self.labyrinthe.cases[(self.abscisse, self.ordonnee + 1)].murBas = False
 
     def supprimerMurBas(self):
         """
@@ -49,10 +53,9 @@ class Case:
         une case au dessous)
         :return: None
         """
-        assert (self.abscisse, self.ordonnee-1) in self.labyrinthe.cases.keys()
+        assert (self.abscisse, self.ordonnee - 1) in self.labyrinthe.cases.keys()
         self.murBas = False
-        self.labyrinthe.cases[(self.abscisse, self.ordonnee-1)].murHaut = False
-
+        self.labyrinthe.cases[(self.abscisse, self.ordonnee - 1)].murHaut = False
 
     def supprimerMurGauche(self):
         """
@@ -61,10 +64,9 @@ class Case:
         une case à gauche)
         :return: None
         """
-        assert (self.abscisse-1, self.ordonnee) in self.labyrinthe.cases.keys()
+        assert (self.abscisse - 1, self.ordonnee) in self.labyrinthe.cases.keys()
         self.murGauche = False
         self.labyrinthe.cases[(self.abscisse - 1, self.ordonnee)].murDroit = False
-
 
     def supprimerMurDroit(self):
         """
@@ -73,11 +75,11 @@ class Case:
         une case à droite)
         :return: None
         """
-        assert (self.abscisse+1, self.ordonnee) in self.labyrinthe.cases.keys()
+        assert (self.abscisse + 1, self.ordonnee) in self.labyrinthe.cases.keys()
         self.murDroit = False
         self.labyrinthe.cases[(self.abscisse + 1, self.ordonnee)].murGauche = False
 
-    def ploterCase(self, opti = True):
+    def ploterCase(self, opti=True):
         """
         Trace la case
         opti : mode optimisé, ne trace que les lignes du haut et celles de gauche, l'idée étant que les autres lignes
@@ -85,12 +87,33 @@ class Case:
         :return:
         """
         if self.murHaut:
-            plt.plot([self.abscisse, self.abscisse+1], [self.ordonnee + 1, self.ordonnee+1], color="black")
+            plt.plot([self.abscisse, self.abscisse + 1], [self.ordonnee + 1, self.ordonnee + 1], color="black")
         if self.murGauche:
-            plt.plot([self.abscisse, self.abscisse], [self.ordonnee, self.ordonnee+1], color = "black")
+            plt.plot([self.abscisse, self.abscisse], [self.ordonnee, self.ordonnee + 1], color="black")
         if not opti:
             if self.murBas:
                 plt.plot([self.abscisse, self.abscisse + 1], [self.ordonnee, self.ordonnee], color="black")
             if self.murDroit:
                 plt.plot([self.abscisse + 1, self.abscisse + 1], [self.ordonnee, self.ordonnee + 1], color="black")
 
+    def getVoisins(self):
+        """
+        Renvoie une liste des cases accessible directement (donc sans mur entre les deux, et de distance 1)
+        """
+        voisins = []
+        cases = self.labyrinthe.cases
+        if not self.murHaut:
+            voisins.append(cases[self.abscisse, self.ordonnee + 1])
+        if not self.murBas:
+            voisins.append(cases[self.abscisse, self.ordonnee - 1])
+        if not self.murGauche:
+            voisins.append(cases[self.abscisse - 1, self.ordonnee])
+        if not self.murDroit:
+            voisins.append((cases[self.abscisse + 1, self.ordonnee]))
+        return voisins
+
+    def __str__(self):
+        """
+        Affiche les coordonées
+        """
+        return f"[{self.abscisse}, {self.ordonnee}]"

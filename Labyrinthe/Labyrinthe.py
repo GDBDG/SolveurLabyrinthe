@@ -15,7 +15,9 @@ class Labyrinthe:
         self.nbColonne = nbColonne
         self.cases = {(abscisse, ordonnee): Case.Case(self, abscisse, ordonnee) for abscisse, ordonnee in
                       product(range(nbLigne), range(nbColonne))}
-
+        self.sortie = self.cases[self.nbLigne - 1, self.nbColonne - 1]
+        self.entree = self.cases[0, 0]
+        self.entree.distance = 0
     def plot_labyrinthe(self):
         """
         Trace le labyrinthe via matplotlib
