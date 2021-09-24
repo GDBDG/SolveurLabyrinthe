@@ -11,12 +11,13 @@ if __name__ == '__main__':
     import GenerateurLabyrinthe.Mineur as Mineur
     setrecursionlimit(RECURSION_LIMITE)
     logging_config.config_logging()
-    laby = Labyrinthe(50, 50)
+    laby = Labyrinthe(5, 5)
     mineur = Mineur.Mineur(labyrinthe=laby)
     mineur.creerLabyrinthe()
     laby.plot_labyrinthe()
+    # plt.show()
     solveur = Solveur(laby)
-    solveur.numerotationTotaleSequentielle()
+    solveur.numerotationTotaleParallele()
     cases = laby.cases
     distances = [[cases[x,y].distance for x in range(laby.nbLigne)] for y in range(laby.nbColonne)]
     print(f"Liste des distances : {distances}")
