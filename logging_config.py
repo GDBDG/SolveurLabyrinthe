@@ -26,7 +26,7 @@ def config_logging():
         },
         "handlers": {
             "default": {
-                "level": "DEBUG",
+                "level": "INFO",
                 "class": "logging.StreamHandler",
                 "formatter": "colored",
             },
@@ -40,7 +40,7 @@ def config_logging():
         "loggers": {
             "": {
                 "handlers": ["default","file"],
-                "level": "DEBUG",
+                "level": "INFO",
                 "propagate": True,
             },
         }}

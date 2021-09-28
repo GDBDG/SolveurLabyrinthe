@@ -137,7 +137,7 @@ def numerotationParallele(main_process_id, case: Case, labyrinthe, listDistance,
             # find winnig feature
             list_param.append([main_process_id, voisin, labyrinthe,listDistance, distance + 1])
 
-            pool = MyPool(multiprocessing.cpu_count())
-            pool.starmap(numerotationParallele, (list_param))
-            pool.close()
-            pool.join()
+        pool = MyPool(multiprocessing.cpu_count())
+        pool.starmap(numerotationParallele, (list_param))
+        pool.close()
+        pool.join()
