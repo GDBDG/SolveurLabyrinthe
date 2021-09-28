@@ -14,7 +14,7 @@ class Mineur:
     Ses coordonées correspondent au point en bas à gauche de sa case.
     (pour correspondre aux clés des cases)
     """
-    @mesureTemps("init Mineur")
+    # @mesureTemps("init Mineur")
     def __init__(self, labyrinthe: laby.Labyrinthe):
         """
         Initialise le mineur, il part de la case de départ (0,0)
@@ -28,7 +28,7 @@ class Mineur:
         self.abscissePrecedente = [0]
         self.ordonneePrecedente = [0]
 
-    @mesureTemps("getCaseVoisine")
+    # @mesureTemps("getCaseVoisine")
     def getCaseVoisines(self) -> [Case.Case]:
         """
         Renvoie une liste des cases voisines (accessible ou non selon l'algo du mineur)
@@ -46,7 +46,7 @@ class Mineur:
             voisins.append(cases[self.abscisse, self.ordonnee + 1])
         return voisins
 
-    @mesureTemps("getCasDisponible")
+    # @mesureTemps("getCasDisponible")
     def getCasesDisponibles(self):
         """
         Renvoie les cases accessible pour l'algo du mineur
@@ -55,7 +55,7 @@ class Mineur:
         """
         logger.debug(f"Cases dispos : {[(case.abscisse, case.ordonnee) for case in self.getCaseVoisines() if not case.exploree]}")
         return [case for case in self.getCaseVoisines() if not case.exploree]
-    @mesureTemps("deplacement Mineur")
+    # @mesureTemps("deplacement Mineur")
     def deplacement(self)->bool:
         """
         Va déplacer le mineur d'une case (si possible)

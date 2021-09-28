@@ -3,12 +3,8 @@ import multiprocessing.pool
 import os
 from itertools import product
 
-import daemon as daemon
-import psutil
-import toolbox as toolbox
 
 import Labyrinthe.Labyrinthe as Labyrinthe
-import multiprocessing as mp
 from Labyrinthe.Case import Case
 import structlog
 
